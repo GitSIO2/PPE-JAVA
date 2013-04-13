@@ -196,7 +196,7 @@ public class Ecouteur implements ActionListener
 					btnSalle.addActionListener(new ActionListener(){//action du bouton
 						public  void actionPerformed(ActionEvent arg0) {
 							JFrame fenetreSalle = new JFrame();
-							ModeleStatiqueObjet modele = new ModeleStatiqueObjet();
+							ModeleDynamicObjetSalle modele = new ModeleDynamicObjetSalle();
 							fenetreSalle. setTitle("JTable basique dans un JScrollPane");
 							JTable tableau;
 							tableau = new JTable(modele);
@@ -208,133 +208,26 @@ public class Ecouteur implements ActionListener
 					}); 
 					btnUser.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent arg0) {
-							String url = "jdbc:mysql://localhost/mrbs";
-							String login = "root";
-							String passwd = "";
-							Connection cn =null;
-							Statement st =null;
-							ResultSet rs =null;
+							JFrame fenetreUser = new JFrame();
+							ModeleDynamicObjetUser modele = new ModeleDynamicObjetUser();
+							fenetreUser. setTitle("JTable basique dans un JScrollPane");
+							JTable tableau;
+							tableau = new JTable(modele);
+							fenetreUser.getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
+							fenetreUser.setVisible(true);
+							
 
-							try {
-								// Etape 1 : Chargement du driver
-								Class.forName("com.mysql.jdbc.Driver");
-								// Etape 2 : récupération de la connexion
-								cn = DriverManager.getConnection(url, login, passwd);
-								/* Etape 3 : Création d'un statement + requete
-	 		  	    	  L'objet Statement permet d'exécuter des instructions SQL, il interroge la base de données et
-	                       retourne les résultats. Ensuite, ces résultats sont stockés dans l'objet ResultSet, grâce auquel 
-	 					  on peut parcourir les lignes de résultats et les afficher.
-
-	                      L'objet Statement est fourni par l'objet Connection grâce à l'instruction conn.createStatement().
-	                      c'est demander à mon objet Statement d'exécuter une requête SQL de type SELECT : SELECT * FROM classe. 
-								 */
-								st = cn.createStatement();
-								String sql = "SELECT * FROM mrbs_users;";
-								// Etape 4 : exécution requête rs =Resultset
-								rs = st.executeQuery(sql);
-
-								while(rs.next()){				
-									int id = rs.getInt(1);
-									int level = rs.getInt(2);
-									String name = rs.getString(3);
-									String password = rs.getString(4);
-									String email = rs.getString(5);
-									int row = rs.getRow();
-
-									JOptionPane.showMessageDialog( null,"table users\n"+ "Données contenues dans la ligne : "+row+"\nid : "+id +"\nlevel : "+level+"\npassword : "+password+"\nemail : "+email); 
-								};
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								JOptionPane.showMessageDialog(null, "erreur sql verifier la requête\n");
-							} catch (ClassNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
 						}
 					}); 
 					btnReserver.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent arg0) {
-							String url = "jdbc:mysql://localhost/mrbs";
-							String login = "root";
-							String passwd = "";
-							Connection cn =null;
-							Statement st =null;
-							ResultSet rs =null;
-
-							try {
-								// Etape 1 : Chargement du driver
-								Class.forName("com.mysql.jdbc.Driver");
-								// Etape 2 : récupération de la connexion
-								cn = DriverManager.getConnection(url, login, passwd);
-								// Etape 3 : Création d'un statement + requete
-								st = cn.createStatement();
-								String sql = "SELECT * FROM mrbs_areas;";
-								// Etape 4 : exécution requête rs =Resultset
-								rs = st.executeQuery(sql);
-
-								while(rs.next()){
-									int id = rs.getInt(1);
-									int  disabled = rs.getInt(2);
-									String area_name  = rs.getString(3);
-									String area_admin_email	 = rs.getString(4);
-									int resolution	= rs.getInt(5);
-									int default_duration= rs.getInt(6);
-									int morningstarts= rs.getInt(7);
-									int morningstarts_minutes= rs.getInt(8);
-									int eveningends	= rs.getInt(9);
-									int eveningends_minutes	= rs.getInt(10);
-									int private_enabled	= rs.getInt(11);
-									int private_default	= rs.getInt(12);
-									int private_mandatory = rs.getInt(13);
-									String private_override = rs.getString(14);
-									int min_book_ahead_enabled	  = rs.getInt(15);
-									int min_book_ahead_secs	  = rs.getInt(16);
-									int max_book_ahead_enabled  = rs.getInt(17);
-									int max_book_ahead_secs	  = rs.getInt(18);
-									int custom_html	  = rs.getInt(19);
-									int approval_enabled  = rs.getInt(20);
-									int reminders_enabled	 = rs.getInt(21);
-									int enable_periods	  = rs.getInt(22);
-									int confirmation_enabled	  = rs.getInt(23);
-									int  confirmed_defaul	 = rs.getInt(24);
-									int row = rs.getRow();
-
-									JOptionPane.showMessageDialog( null,"table mrbs_areas\n"+
-											"Données contenues dans la ligne : "+row+
-											"\nidentifiant : "+id +
-											"\nhandicapé : "+disabled  +
-											"\nnom de la zone : "+area_name+
-											"\nzone admin_email : "+area_admin_email+
-											"\nresolution : "+resolution+
-											"\ndurée par défaut: "+default_duration+
-											"\nheure de départ: "+morningstarts+
-											"\nheure de départ (minutes): "+morningstarts_minutes+
-											"\nheure de fermeture : "+eveningends	+
-											"\nheure de fermeture (nimutes) : "+eveningends_minutes+
-											"\nactivé privé : "+private_enabled	+
-											"\nactivé par défaut : "+private_default+
-											"\nactivité obligatoire : "+private_mandatory+
-											"\n dérogation privé: "+private_override+
-											"\nréserver à l'avance activée minimum : "+min_book_ahead_enabled+
-											"\nmin_book_ahead_secs : "+ min_book_ahead_secs+
-											"\nréserver à l'avance activée maximum : "+ max_book_ahead_enabled  +
-											"\nmax_book_ahead_secs : "+ max_book_ahead_secs+
-											"\nhTML personnalisé : "+custom_html+	  
-											"\nl'approbation activée : "+approval_enabled +
-											"\nrappels permis : "+ reminders_enabled+  
-											"\npermis périodes : "+ enable_periods+  
-											"\nconfirmation de permis : "+confirmation_enabled+
-											"\ndéfaut confirmé : "+ confirmed_defaul);	
-								};
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								JOptionPane.showMessageDialog(null, "erreur sql verifier la requête\n");
-							} catch (ClassNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+							JFrame fenetreResa = new JFrame();
+							ModeleDynamicObjetReserver modele = new ModeleDynamicObjetReserver();
+							fenetreResa. setTitle("JTable basique dans un JScrollPane");
+							JTable tableau;
+							tableau = new JTable(modele);
+							fenetreResa.getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
+							fenetreResa.setVisible(true);
 						}
 					}); 
 				} 
