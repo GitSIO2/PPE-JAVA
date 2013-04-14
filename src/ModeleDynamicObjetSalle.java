@@ -12,7 +12,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeleDynamicObjetSalle extends AbstractTableModel {
 	private final List<Salle> salles = new ArrayList<Salle>();
  
-    private final String[] entetes = {"id", "disabled", "area_id", "room_name", "sort_key", "description", "capacity", "room_admin_email","custom_html" };
+    private final String[] entetes = {"id", "area_id", "room_name", "sort_key", "description", "capacity", "room_admin_email","custom_html" };
 
  
     public ModeleDynamicObjetSalle() {
@@ -37,7 +37,7 @@ public class ModeleDynamicObjetSalle extends AbstractTableModel {
 			rs = st.executeQuery(sql);
  
 			while(rs.next()){
-			salles.add(new Salle(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9))); 
+			salles.add(new Salle(rs.getInt(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9))); 
 			}
         
 		} catch (SQLException e) {//execption
@@ -62,67 +62,26 @@ public class ModeleDynamicObjetSalle extends AbstractTableModel {
         return entetes[columnIndex];
     }
 
-	
+	@Override
+	/*public Object getValueAt(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
+ 
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
             case 0:
                 return salles.get(rowIndex).getId();
             case 1:
-                return salles.get(rowIndex).getDisabled();
+                return salles.get(rowIndex).getDescription();
             case 2:
                 return salles.get(rowIndex).getArea_Id();
             case 3:
                 return salles.get(rowIndex).getRoom_Name();
             case 4:
                 return salles.get(rowIndex).getSort_Key();
-            case 5:
-                return salles.get(rowIndex).getDescription();
-            case 6:
-                return salles.get(rowIndex).getCapacity();
-            case 7:
-                return salles.get(rowIndex).getRoom_Admin_Email();
-            case 8:
-                return salles.get(rowIndex).getCustomHtml();
-                
             default:
                 return null; //Ne devrait jamais arriver
         }
-    }
-    
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        if(aValue != null){
-            Salle salle = salles.get(rowIndex);
-     
-            switch(columnIndex){
-                case 1:
-                	salle.setDisabled(Integer.parseInt((String) aValue));
-                    break;
-                case 2:
-                	salle.setArea_Id((String)aValue);
-                    break;
-                case 3:
-                	salle.getRoom_Name((String)aValue);
-                    break;
-                case 4:
-                	salle.setSort_Key((String)aValue);
-                	break;
-                case 5:
-                	salle.setDescription((String)aValue);
-                	break;
-                case 6:
-                	salle.setCapacity(Integer.parseInt((String)aValue));
-                    break;
-                case 7:
-                	salle.setRoom_Admin_Email((String)aValue);
-                    break;
-                case 8:
-                	salle.getCustomHtml((String)aValue);
-                    break;
-                  
-            }
-        }
-    }
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true; //Toutes les cellules éditables
     }
 }
