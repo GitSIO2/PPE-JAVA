@@ -57,11 +57,11 @@ public class Ecouteur implements ActionListener
 			JTextField sort_key = new JTextField();		//cree un champ text
 			JTextField description= new JTextField();	//cree un champ text
 			JTextField capacity= new JTextField();		//cree un champ text
-			int option1 = JOptionPane.showOptionDialog(null, 
-					new Object[] {"Réserver une nouvelle salle (* champ obligatoire) ?","*Disponibilité(0/1) :", disabled, "*identifiant de la zone :", area_id,"sort_key :", sort_key,"description :", description,"*nom de la salle :", room_name,"* capacité :", capacity},
+			int optionResa = JOptionPane.showOptionDialog(null, 
+					new Object[] {" Réserver une nouvelle salle (* champ obligatoire) ?","*Disponibilité(0/1) :", disabled, "*identifiant de la zone :", area_id,"sort_key :", sort_key,"description :", description,"*nom de la salle :", room_name,"* capacité :", capacity},
 					"formulaire rdv",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null,  null, null); 
 
-			if (option1 == JOptionPane.OK_OPTION)
+			if (optionResa == JOptionPane.OK_OPTION)
 			{  
 				String url = "jdbc:mysql://localhost/mrbs";
 				String root = "root";
@@ -109,7 +109,7 @@ public class Ecouteur implements ActionListener
 	 	    				String sqll2 ="UPDATE mrbs_areas SET disabled='1'WHERE id=3;";
 	 	                    ResultSet rs = st.executeQuery(sqll2);
 	 	    		    }*/
-					/*booleen faux  if */
+					
 					JOptionPane.showMessageDialog(null, "insertion des données en base\n"+sId+ "\n"+sName+"\n"+sSortKey+"\n"+sDescrption+"\n"+sCapacity);
 				} catch (SQLException ev) {//execption
 					// TODO Auto-generated catch block
@@ -164,13 +164,12 @@ public class Ecouteur implements ActionListener
 					st = cn.createStatement();
 					//creation d'une fenêtre 
 					JFrame fenetre = new JFrame();
-					JButton btnSalle = new JButton("TABLE salle");
+					JButton btnSalle = new JButton("TABLE salles");
 					JButton btnUser = new JButton("TABLE users");
-					JButton btnReserver = new JButton("TABLE réserver"); 
+					JButton btnReserver = new JButton("TABLE Zones"); 
 					JPanel container2 = new JPanel();
 					fenetre.setTitle("contenue de la base de données");
 					fenetre.setSize(700, 550);
-					fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					fenetre.setLocationRelativeTo(null);
 					fenetre.setContentPane(container2);
 					//cree des panel pour placer les texts et les boutons
@@ -197,7 +196,8 @@ public class Ecouteur implements ActionListener
 						public  void actionPerformed(ActionEvent arg0) {
 							JFrame fenetreSalle = new JFrame();
 							ModeleDynamicObjetSalle modele = new ModeleDynamicObjetSalle();
-							fenetreSalle. setTitle("JTable basique dans un JScrollPane");
+							fenetreSalle. setTitle("JTable Salles");
+							fenetreSalle.setSize(800, 600);
 							JTable tableau;
 							tableau = new JTable(modele);
 							fenetreSalle.getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
@@ -210,7 +210,8 @@ public class Ecouteur implements ActionListener
 						public void actionPerformed(ActionEvent arg0) {
 							JFrame fenetreUser = new JFrame();
 							ModeleDynamicObjetUser modele = new ModeleDynamicObjetUser();
-							fenetreUser. setTitle("JTable basique dans un JScrollPane");
+							fenetreUser. setTitle("JTable Users");
+							fenetreUser.setSize(800, 600);
 							JTable tableau;
 							tableau = new JTable(modele);
 							fenetreUser.getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
@@ -222,8 +223,9 @@ public class Ecouteur implements ActionListener
 					btnReserver.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent arg0) {
 							JFrame fenetreResa = new JFrame();
-							ModeleDynamicObjetReserver modele = new ModeleDynamicObjetReserver();
-							fenetreResa. setTitle("JTable basique dans un JScrollPane");
+							ModeleDynamicObjetZone modele = new ModeleDynamicObjetZone();
+							fenetreResa. setTitle("JTable Zones");
+							fenetreResa.setSize(800, 600);
 							JTable tableau;
 							tableau = new JTable(modele);
 							fenetreResa.getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);

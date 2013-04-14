@@ -87,9 +87,9 @@ public class Fenetre extends JFrame
 	container.setLayout(new BorderLayout());
 
 	//JLabel label = new JLabel("Bienvenue sur le site");
-	JLabel label1 = new JLabel("<html> MAISONS DES LIGUES<br><br> misson réservation<br><br>Cette application vous" +
-			" permettra de vous connecter à notre base de données mrbs.</center><br> Vous pourrez rechercher des chambres  " +
-			"ainsi que le lieu de l'hotel.</html>");
+	JLabel label1 = new JLabel("<html> MAISONS DES LIGUES<br><br> mission réservation<br><br>Cette application vous" +
+			" permettra de vous connecter à notre base de données mrbs.</center><br> Vous pourrez consulter les salles  " +
+			"ainsi que les differentes zones de l'établissement.</html>");
 	container.add(label1, BorderLayout.CENTER);
 
 	this.setContentPane(container);//ajout container à la fenetre
